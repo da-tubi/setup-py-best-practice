@@ -1,0 +1,42 @@
+name: Python
+
+on:
+  # trigger test on pull_request
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  test:
+    name: PR Test
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        python-version: [3.8]
+    timeout-minutes: 30
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        lfs: true
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: cache pip
+      uses: actions/cache@v2
+      with:
+        path: /opt/hostedtoolcache/${{ matrix.python-version }}
+        key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('**/setup.py') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    - name: Pip install
+      run: |
+        PYTHONUSERBASE=/opt/hostedtoolcache/${{ matrix.python-version }} \
+        python -m pip install --user -e .[all,dev]
+    - name: Extra bin path
+      run: |
+        echo /opt/hostedtoolcache/${{ matrix.python-version }}/bin >> $GITHUB_PATH
+    - name: Run python tests
+      run: |
+        PYTHONUSERBASE=/opt/hostedtoolcache/${{ matrix.python-version }} make test

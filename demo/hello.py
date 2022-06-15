@@ -1,6 +1,6 @@
 def hello():
-    print("Helllo, setup.py")
+    return "Helllo, setup.py"
 
 if __name__=="__main__":
-    hello()
+    print(hello())
 
