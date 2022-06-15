@@ -1,0 +1,40 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    branches:
+      - '**'
+  deployment:
+    branches:
+      - '**'
+  release:
+    types:
+      - released
+
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Git Version
+        id: git-version
+        uses: codacy/git-version@2.2.0
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Set ENV variables by befault
+        run: |
+          echo "::set-env name=SETUPTOOLS_SCM_PRETEND_VERSION::${{ steps.git-version.outputs.version }}"
+      - name: Show current version
+        run: make version
