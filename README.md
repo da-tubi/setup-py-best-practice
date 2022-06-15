@@ -52,4 +52,4 @@ In this demo repo, there is only one direct dependency `pytest`.
 
 | Attempt | Cache Hit | elapsed time of pip install | total elapsed time |
 | 1       | No        | 5s                          | 13                 |
-| 2       | Yes       |                             |                    |
+| 2       | Yes       | 3s                          | 9s                 |
