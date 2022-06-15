@@ -15,6 +15,9 @@ jobs:
   deploy:
     runs-on: ubuntu-20.04
 
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+
     steps:
       - name: Dump GitHub context
         env:
@@ -28,6 +31,8 @@ jobs:
       - name: Git Version
         id: git-version
         uses: codacy/git-version@2.2.0
+        with:
+          release-branch: main
 
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
