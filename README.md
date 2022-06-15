@@ -51,5 +51,10 @@ Type "help", "copyright", "credits" or "license" for more information.
 In this demo repo, there is only one direct dependency `pytest`.
 
 | Attempt | Cache Hit | elapsed time of pip install | total elapsed time |
-| 1       | No        | 5s                          | 13                 |
+|---------|-----------|-----------------------------|--------------------|
+| 1       | No        | 5s                          | 13s                |
 | 2       | Yes       | 3s                          | 9s                 |
+| 3       | Yes       | 2s                          | 11s                |
+
+For more info: [How can I use pip cache in github actions](https://stackoverflow.com/a/70638014)
+
