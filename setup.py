@@ -22,6 +22,9 @@ setup(
     packages=['demo'],
     include_package_data=True,
     install_requires=[],
+    extras_require={
+        "dev": ["pytest"]
+    },
     zip_safe=False,
     classifiers=[
         'Intended Audience :: Developers',

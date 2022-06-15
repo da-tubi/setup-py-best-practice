@@ -1,5 +1,8 @@
 install:
-	pip install -e .
+	pip install -e .[dev]
+
+test:
+	pytest
 
 version:
 	python setup.py --version
