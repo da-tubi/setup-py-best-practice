@@ -17,7 +17,7 @@ For more info: https://github.com/pypa/setuptools_scm
 ## Best Practice 3: Github Action to publish it to JFROG/PYPI
 Github Action [codacy/git-version](https://github.com/codacy/git-version) is adopted to find the next version (Semver based) of the latest git tag `0.0.1`.
 
-In this repo, we find the next version and the set it to the environment variable `SETUPTOOLS_SCM_PRETEND_VERSION`. With `SETUPTOOLS_SCM_PRETEND_VERSION` provided, `make version` and we will found that the manually assigned one will override the automatically derived version.
+In this repo, we find the next version and the set it to the environment variable `SETUPTOOLS_SCM_PRETEND_VERSION`. With `SETUPTOOLS_SCM_PRETEND_VERSION` provided, `make version` and we will find that the manually assigned one will override the automatically derived version.
 
 ## Best Practice 4: `__version__`
 Since Python 3.8, we could use the following code snippet to provide `__version__`.
@@ -35,6 +35,8 @@ pip install -e .
 Installing collected packages: setup-py-best-practice
   Running setup.py develop for setup-py-best-practice
 Successfully installed setup-py-best-practice-0.0.2.dev3+ga93e31a.d20220615
+```
+``` bash
 $ python
 Python 3.8.10 (default, May 19 2021, 11:01:55)
 [Clang 10.0.0 ] :: Anaconda, Inc. on darwin
@@ -44,3 +46,10 @@ Type "help", "copyright", "credits" or "license" for more information.
 '0.0.2.dev3+ga93e31a.d20220615'
 >>>
 ```
+
+## Best Practice 5: Cache Python dependencies in Test CI by [@Renkai](https://github.com/Renkai)
+In this demo repo, there is only one direct dependency `pytest`.
+
+| Attempt | Cache Hit | elapsed time of pip install | total elapsed time |
+| 1       | No        | 5s                          | 13                 |
+| 2       | Yes       |                             |                    |
